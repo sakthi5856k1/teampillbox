@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { redirectToDiscordLogin } from '../utils/discordOAuth';
 
 const AppContext = createContext();
 
@@ -228,9 +229,17 @@ export const AppProvider = ({ children }) => {
   const [isDiscordModalOpen, setIsDiscordModalOpen] = useState(false);
 
   // Smart navigation — blocks portal if not logged in
+  const handleDiscordLoginRedirect = () => {
+    const redirected = redirectToDiscordLogin();
+    if (!redirected) {
+      // Fallback demo login when client ID is not set
+      loginAsDiscordUser(MOCK_DISCORD_USERS[0]);
+    }
+  };
+
   const setCurrentTab = (tab) => {
     if (tab === 'portal' && !isLoggedIn) {
-      setIsDiscordModalOpen(true);
+      handleDiscordLoginRedirect();
       return;
     }
     _setCurrentTab(tab);
@@ -388,6 +397,7 @@ export const AppProvider = ({ children }) => {
       discordUser,
       mockDiscordUsers: MOCK_DISCORD_USERS,
       loginAsDiscordUser,
+      triggerDiscordLogin: handleDiscordLoginRedirect,
       logout,
       isOnDuty,
       clockIn,
