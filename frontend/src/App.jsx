@@ -41,7 +41,7 @@ const PageWrapper = ({ children }) => {
    LoginGate — shown instead of portal when user is not logged in
 ──────────────────────────────────────────────────────────────── */
 const LoginGate = () => {
-  const { setIsDiscordModalOpen, setCurrentTab } = useApp();
+  const { triggerDiscordLogin, setCurrentTab } = useApp();
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="text-center max-w-md">
@@ -62,7 +62,7 @@ const LoginGate = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
-            onClick={() => setIsDiscordModalOpen(true)}
+            onClick={() => triggerDiscordLogin()}
             className="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-sm uppercase tracking-wide transition-all hover:scale-105 active:scale-95 shadow-lg"
           >
             <LogIn className="w-4 h-4" />
