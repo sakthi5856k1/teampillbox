@@ -6,141 +6,156 @@ import {
   LogIn, 
   MessageSquare, 
   Clock, 
-  Award, 
   Radio, 
   ArrowRight,
   Activity
 } from 'lucide-react';
 
 export const HeroSection = () => {
-  const { setCurrentTab, onlineCount } = useApp();
+  const { setCurrentTab, setIsDiscordModalOpen, onlineCount } = useApp();
 
   return (
-    <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-dark-950 pt-8 pb-16">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-dark-950">
       
-      {/* Background Graphic & Dark Overlay Gradient */}
+      {/* ── Full-screen Background ── */}
       <div className="absolute inset-0 z-0">
         <img 
           src="/assets/pillbox_hero_bg.jpg" 
           alt="Pillbox EMS Night Hospital Scene" 
-          className="w-full h-full object-cover opacity-25 filter contrast-125 brightness-75 scale-105 transform animate-pulse-subtle"
+          className="w-full h-full object-cover opacity-30 filter contrast-110 brightness-75"
+          style={{ transform: 'scale(1.04)' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-dark-950 via-transparent to-dark-950/90"></div>
+        {/* Layered gradients for crisp text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/70 to-dark-950/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-950/90 via-transparent to-dark-950/80"></div>
         
-        {/* Glow Spheres */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-ems-red/20 rounded-full blur-[140px] pointer-events-none"></div>
+        {/* Ambient red glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-ems-red/15 rounded-full blur-[160px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-ems-red/10 rounded-full blur-[100px] pointer-events-none"></div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* ── Hero Content ── */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 flex flex-col items-center">
         
-        {/* Top Status Pill */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-dark-900/90 border border-ems-red/40 backdrop-blur-md mb-8 shadow-glow-red">
-          <span className="flex h-2.5 w-2.5 relative">
+        {/* Status badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-900/80 border border-ems-red/35 backdrop-blur-md mb-8 shadow-glow-red">
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ems-red opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-ems-red"></span>
           </span>
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-200">
-            Pillbox Hill Medical Center • 24/7 High-Emergency Unit
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-slate-200">
+            Pillbox Hill Medical Center &nbsp;•&nbsp; 24/7 Emergency Response
           </span>
         </div>
 
-        {/* Big Emblem & Title */}
-        <div className="flex justify-center mb-6">
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-gradient-to-r from-ems-red to-ems-darkred rounded-full blur-xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
-            <img 
-              src="/assets/pillbox_ems_logo.jpg" 
-              alt="Team Pillbox EMS Seal" 
-              className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-ems-red shadow-glow-red-lg transform group-hover:scale-105 transition duration-300"
-            />
-          </div>
+        {/* Logo Emblem */}
+        <div className="relative mb-7 group">
+          <div className="absolute -inset-5 bg-gradient-to-r from-ems-red to-ems-darkred rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+          <img 
+            src="/assets/pillbox_ems_logo.jpg" 
+            alt="Team Pillbox EMS Seal" 
+            className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-ems-red shadow-glow-red-lg group-hover:scale-105 transition-transform duration-300"
+          />
         </div>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 font-heading">
-          TEAM PILLBOX <span className="text-transparent bg-clip-text bg-gradient-to-r from-ems-red via-red-400 to-ems-red-hover text-glow-red">EMS</span>
+        {/* Headline */}
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-4 font-heading leading-none">
+          TEAM PILLBOX
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-ems-red via-red-400 to-red-500">
+            EMS
+          </span>
         </h1>
 
-        <p className="max-w-3xl mx-auto text-base sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
-          San Andreas' premier Emergency Medical Services roleplay organization. Delivering gold-standard trauma care, rapid air evacuation, and tactical medical support across Los Santos.
+        <p className="max-w-2xl text-base sm:text-lg text-slate-400 font-normal leading-relaxed mb-10">
+          San Andreas' premier Emergency Medical Services roleplay organization — delivering gold-standard trauma care, rapid air evacuation, and tactical medical support.
         </p>
 
-        {/* Animated CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
+        {/* ── CTA Buttons ── */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-16">
           
-          {/* Join EMS CTA */}
+          {/* Join EMS */}
           <button
             onClick={() => setCurrentTab('recruitment')}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-ems-red via-red-600 to-ems-darkred font-bold text-white tracking-wide uppercase text-sm shadow-glow-red hover:shadow-glow-red-lg transition-all duration-300 hover:scale-105 active:scale-95"
+            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-ems-red via-red-600 to-ems-darkred font-bold text-white tracking-wide uppercase text-sm shadow-glow-red hover:shadow-glow-red-lg transition-all duration-300 hover:scale-105 active:scale-95"
           >
-            <HeartPulse className="w-5 h-5 group-hover:animate-bounce" />
-            <span>Join EMS Academy</span>
+            <HeartPulse className="w-4 h-4 group-hover:animate-bounce" />
+            Join EMS Academy
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
 
-          {/* Staff Login CTA */}
+          {/* Staff Login — opens Discord auth modal */}
           <button
-            onClick={() => setCurrentTab('admin')}
-            className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl bg-dark-850/90 border border-white/15 hover:border-ems-red/60 font-semibold text-slate-200 hover:text-white text-sm tracking-wide uppercase backdrop-blur-md transition-all duration-300 hover:bg-dark-800 hover:scale-105 active:scale-95"
+            onClick={() => setIsDiscordModalOpen(true)}
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2] font-semibold text-white text-sm tracking-wide uppercase backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
           >
-            <LogIn className="w-4 h-4 text-ems-red" />
-            <span>Staff Portal Login</span>
+            <LogIn className="w-4 h-4 text-[#7289da]" />
+            Staff Login
           </button>
 
-          {/* Discord CTA */}
+          {/* Discord */}
           <a
             href="https://discord.gg"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 hover:bg-[#5865F2] font-semibold text-white text-sm tracking-wide uppercase backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-dark-850/80 border border-white/10 hover:border-[#5865F2]/60 hover:bg-dark-800 font-semibold text-slate-200 hover:text-white text-sm tracking-wide uppercase backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
           >
-            <MessageSquare className="w-4 h-4 text-[#5865F2] group-hover:text-white" />
-            <span>Official Discord</span>
+            <MessageSquare className="w-4 h-4 text-[#5865F2]" />
+            Discord
           </a>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+        {/* ── Stats Grid ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl">
           
-          <div className="glass-panel p-5 rounded-2xl border-l-4 border-ems-red">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs uppercase font-mono text-slate-400">On Duty Paramedics</span>
-              <Activity className="w-5 h-5 text-ems-red" />
+          <div className="glass-panel p-4 rounded-2xl border-l-4 border-ems-red text-left">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-mono text-slate-400">On Duty</span>
+              <Activity className="w-4 h-4 text-ems-red" />
             </div>
-            <div className="text-3xl font-extrabold text-white font-heading">{onlineCount} Units</div>
-            <p className="text-[11px] text-emerald-400 font-medium mt-1">Active Patrol & Hospital Triage</p>
+            <div className="text-2xl font-extrabold text-white font-heading">{onlineCount}</div>
+            <p className="text-[10px] text-emerald-400 mt-0.5 font-mono">Units Active</p>
           </div>
 
-          <div className="glass-panel p-5 rounded-2xl border-l-4 border-ems-red">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs uppercase font-mono text-slate-400">Avg Response Time</span>
-              <Clock className="w-5 h-5 text-ems-red" />
+          <div className="glass-panel p-4 rounded-2xl border-l-4 border-ems-red text-left">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-mono text-slate-400">Response</span>
+              <Clock className="w-4 h-4 text-ems-red" />
             </div>
-            <div className="text-3xl font-extrabold text-white font-heading">&lt; 90 Sec</div>
-            <p className="text-[11px] text-slate-400 font-medium mt-1">Citywide Priority Calls</p>
+            <div className="text-2xl font-extrabold text-white font-heading">&lt;90s</div>
+            <p className="text-[10px] text-slate-400 mt-0.5 font-mono">Priority Calls</p>
           </div>
 
-          <div className="glass-panel p-5 rounded-2xl border-l-4 border-ems-red">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs uppercase font-mono text-slate-400">Life-Saves This Month</span>
-              <ShieldCheck className="w-5 h-5 text-ems-red" />
+          <div className="glass-panel p-4 rounded-2xl border-l-4 border-ems-red text-left">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-mono text-slate-400">Life-Saves</span>
+              <ShieldCheck className="w-4 h-4 text-ems-red" />
             </div>
-            <div className="text-3xl font-extrabold text-white font-heading">1,420+</div>
-            <p className="text-[11px] text-slate-400 font-medium mt-1">Code 3 Resuscitation Success</p>
+            <div className="text-2xl font-extrabold text-white font-heading">1,420+</div>
+            <p className="text-[10px] text-slate-400 mt-0.5 font-mono">This Month</p>
           </div>
 
-          <div className="glass-panel p-5 rounded-2xl border-l-4 border-ems-red">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs uppercase font-mono text-slate-400">Air Rescue Certs</span>
-              <Radio className="w-5 h-5 text-ems-red" />
+          <div className="glass-panel p-4 rounded-2xl border-l-4 border-ems-red text-left">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-mono text-slate-400">Air Rescue</span>
+              <Radio className="w-4 h-4 text-ems-red" />
             </div>
-            <div className="text-3xl font-extrabold text-white font-heading">24/7</div>
-            <p className="text-[11px] text-slate-400 font-medium mt-1">Air One Helipad Evac Operations</p>
+            <div className="text-2xl font-extrabold text-white font-heading">24/7</div>
+            <p className="text-[10px] text-slate-400 mt-0.5 font-mono">Helipad Ops</p>
           </div>
 
         </div>
 
       </div>
+
+      {/* Scroll-down cue */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 animate-bounce opacity-50">
+        <div className="w-5 h-8 rounded-full border-2 border-slate-400 flex items-start justify-center pt-1.5">
+          <div className="w-1 h-2 bg-slate-400 rounded-full"></div>
+        </div>
+        <span className="text-[9px] font-mono uppercase text-slate-500 tracking-widest">Scroll</span>
+      </div>
+
     </div>
   );
 };
