@@ -14,6 +14,7 @@ import {
   Menu, 
   X, 
   LogIn, 
+  LogOut,
   UserCheck,
   MessageSquare,
   Activity
@@ -25,7 +26,8 @@ export const Navbar = () => {
     setCurrentTab, 
     setIsDiscordModalOpen, 
     isLoggedIn,
-    discordUser, 
+    discordUser,
+    logout,
     onlineCount 
   } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -136,19 +138,29 @@ export const Navbar = () => {
 
             {/* Staff Login / My Portal button */}
             {isLoggedIn ? (
-              // Already logged in → go straight to My Portal
-              <button
-                onClick={() => handleNavClick('portal')}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white text-[11px] font-bold transition-all shadow-md"
-              >
-                <img
-                  src={discordUser?.avatar}
-                  alt="avatar"
-                  className="w-5 h-5 rounded-full object-cover border border-white/30"
-                />
-                <span>{discordUser?.badge}</span>
-                <span className="text-[#a5b4fc] font-normal">· My Portal</span>
-              </button>
+              // Logged in → show My Portal + Logout
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleNavClick('portal')}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all ${
+                    currentTab === 'portal'
+                      ? 'bg-[#5865F2] text-white'
+                      : 'bg-[#5865F2]/15 text-[#7289da] hover:bg-[#5865F2]/30 border border-[#5865F2]/30'
+                  }`}
+                >
+                  {discordUser?.avatar && (
+                    <img src={discordUser.avatar} alt="avatar" className="w-5 h-5 rounded-full object-cover border border-white/20" />
+                  )}
+                  <span>{discordUser?.badge} · My Portal</span>
+                </button>
+                <button
+                  onClick={logout}
+                  title="Logout"
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-dark-850 border border-white/10 hover:border-red-500/50 text-slate-400 hover:text-red-400 text-[11px] transition-all"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
             ) : (
               // Not logged in → open Discord auth modal
               <button
