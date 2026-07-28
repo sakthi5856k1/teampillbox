@@ -4,7 +4,7 @@ import { DiscordBotSimulator } from './DiscordBotSimulator';
 import { 
   User, 
   Clock, 
-  IdCard, 
+  CreditCard as IdCard, 
   Award, 
   FilePlus, 
   Package, 
