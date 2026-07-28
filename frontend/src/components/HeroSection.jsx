@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export const HeroSection = () => {
-  const { setCurrentTab, setIsDiscordModalOpen, onlineCount } = useApp();
+  const { setCurrentTab, triggerDiscordLogin, onlineCount } = useApp();
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-dark-950">
@@ -84,9 +84,9 @@ export const HeroSection = () => {
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
 
-          {/* Staff Login — opens Discord auth modal */}
+          {/* Staff Login — direct Discord OAuth */}
           <button
-            onClick={() => setIsDiscordModalOpen(true)}
+            onClick={() => triggerDiscordLogin()}
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2] font-semibold text-white text-sm tracking-wide uppercase backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <LogIn className="w-4 h-4 text-[#7289da]" />
