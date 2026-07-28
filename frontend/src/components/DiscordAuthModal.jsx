@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { X, MessageSquare, LogIn, ShieldCheck, ExternalLink } from 'lucide-react';
+import { X, MessageSquare, ShieldCheck, ExternalLink } from 'lucide-react';
 
 export const DiscordAuthModal = () => {
   const { isDiscordModalOpen, setIsDiscordModalOpen, loginAsDiscordUser, mockDiscordUsers } = useApp();
