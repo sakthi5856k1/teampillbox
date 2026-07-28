@@ -4,7 +4,7 @@ import {
   Eye, 
   ShieldAlert, 
   HeartPulse, 
-  Cross, 
+  ShieldAlert as CrossIcon, 
   Award, 
   Users, 
   Stethoscope,
@@ -42,7 +42,7 @@ export const AboutSection = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ems-red/10 border border-ems-red/30 text-ems-red text-xs font-semibold uppercase tracking-wider mb-3">
-            <Cross className="w-3.5 h-3.5" />
+            <CrossIcon className="w-3.5 h-3.5" />
             About Team Pillbox EMS
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white font-heading tracking-tight mb-4">
