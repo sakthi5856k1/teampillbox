@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { 
-  IdCard, 
+  CreditCard as IdCard, 
   Printer, 
   Download, 
   Sparkles, 
