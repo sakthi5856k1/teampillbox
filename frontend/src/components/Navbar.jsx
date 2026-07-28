@@ -24,7 +24,7 @@ export const Navbar = () => {
   const { 
     currentTab, 
     setCurrentTab, 
-    setIsDiscordModalOpen, 
+    triggerDiscordLogin, 
     isLoggedIn,
     discordUser,
     logout,
@@ -52,7 +52,7 @@ export const Navbar = () => {
   };
 
   const handleStaffLogin = () => {
-    setIsDiscordModalOpen(true);
+    triggerDiscordLogin();
   };
 
   return (
