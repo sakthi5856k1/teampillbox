@@ -222,13 +222,22 @@ const INITIAL_LEAVE_REQUESTS = [
 ];
 
 export const AppProvider = ({ children }) => {
-  const [currentTab, setCurrentTab] = useState('home');
-  const [userRole, setUserRole] = useState('Super Admin');
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [currentTab, _setCurrentTab] = useState('home');
+  const [userRole, setUserRole] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDiscordModalOpen, setIsDiscordModalOpen] = useState(false);
 
-  // Active Logged-in Staff User profile (via Discord)
-  const [discordUser, setDiscordUser] = useState(MOCK_DISCORD_USERS[0]);
+  // Smart navigation — blocks portal if not logged in
+  const setCurrentTab = (tab) => {
+    if (tab === 'portal' && !isLoggedIn) {
+      setIsDiscordModalOpen(true);
+      return;
+    }
+    _setCurrentTab(tab);
+  };
+
+  // Active Logged-in Staff User profile (via Discord) — null until authenticated
+  const [discordUser, setDiscordUser] = useState(null);
 
   // Duty Shift Clock Tracker
   const [isOnDuty, setIsOnDuty] = useState(false);
@@ -302,7 +311,17 @@ export const AppProvider = ({ children }) => {
     setUserRole(discordProfile.role);
     setIsLoggedIn(true);
     setIsDiscordModalOpen(false);
-    setCurrentTab('portal');
+    _setCurrentTab('portal'); // bypass guard — we ARE logging in
+  };
+
+  // Logout — clear user and go home
+  const logout = () => {
+    setDiscordUser(null);
+    setUserRole(null);
+    setIsLoggedIn(false);
+    setIsOnDuty(false);
+    setActiveShiftSeconds(0);
+    _setCurrentTab('home');
   };
 
   const addPatientLog = (logData) => {
@@ -369,6 +388,7 @@ export const AppProvider = ({ children }) => {
       discordUser,
       mockDiscordUsers: MOCK_DISCORD_USERS,
       loginAsDiscordUser,
+      logout,
       isOnDuty,
       clockIn,
       clockOut,
