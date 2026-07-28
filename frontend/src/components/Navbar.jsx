@@ -7,7 +7,7 @@ import {
   FileText, 
   Newspaper, 
   Image as ImageIcon, 
-  IdCard, 
+  CreditCard as IdCard, 
   Award, 
   ShieldAlert, 
   Calendar, 
